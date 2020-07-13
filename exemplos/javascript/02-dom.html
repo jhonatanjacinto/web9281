@@ -1,0 +1,58 @@
+<meta charset="utf-8">
+<h1>JavaScript: querySelector e querySelectorAll</h1>
+<style>
+    p {
+        background-color: #f2f2f2;
+        border: 1px solid #ddd;
+        padding: 15px;
+    }
+    .vermelho {
+        background-color: #fff0f0;
+        border-color: red;
+        color: red;
+    }
+</style>
+
+<p>Parágrafo 1</p>
+<p class="vermelho">Parágrafo 2</p>
+<p>Parágrafo 3</p>
+<p>Parágrafo 4</p>
+<p class="vermelho">Parágrafo 5</p>
+<p class="vermelho">Parágrafo 6</p>
+<span class="vermelho">Meu span vermelho</span>
+<p>Parágrafo 7</p>
+<p>Parágrafo 8</p>
+<p>Parágrafo 9</p>
+<p id="p10">Parágrafo 10</p>
+
+<script>
+
+    // querySelector(seletor): busca e retorna o primeiro elemento que atenda ao seletor CSS especificado
+    // querySelectorAll(seletor): busca e retorna uma lista com todos os elementos que atendam ao seletor CSS especificado
+    const p = document.querySelector('#p10');
+    p.textContent = "Texto alterado pelo JavaScript...";
+    p.style.backgroundColor = 'black';
+    p.style.color = 'white';
+    p.style.fontStyle = 'italic';
+
+    // Retorna um NodeList
+    const vermelhos = document.querySelectorAll('.vermelho');
+    
+    for (let i = 0; i < vermelhos.length; i++)
+    {
+        vermelhos[i].textContent = 'Alterando o texto dos vermelhos com for()...';
+    }
+
+    for (let elemento of vermelhos)
+    {
+        elemento.textContent = "Trocando o texto dos vermelhos com for..of";
+    }
+
+    vermelhos.forEach(function(elemento, indice) {
+        elemento.textContent = "Alterando o texto novamente com forEach()";
+    });
+
+    // Arrow Functions / ES6
+    vermelhos.forEach(elemento => elemento.textContent = "Alterando o texto novamente com forEach() + Arrow Function");
+
+</script>

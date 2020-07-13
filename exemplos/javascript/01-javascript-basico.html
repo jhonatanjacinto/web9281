@@ -1,0 +1,100 @@
+<meta charset="utf-8">
+<h1>JavaScript: variáveis, escopos e tipos</h1>
+
+<script>
+
+    /* 
+        'use strict' proibe:
+        a) o uso de variáveis sem declaração explicita;
+        b) parâmetros duplicados em uma função;
+        c) o uso do comando with();
+        d) modifica o comportamento da palavra-chave 'this'.
+    */
+    'use strict';
+
+    /* variáveis com var só respitam 2 escopos: o de função e o global */
+    var a = 999;
+    console.log(a);
+
+    if (true) {
+        var b = a;
+    }
+    
+    console.log('O valor de b é: ', b); // Ok
+
+    function teste() {
+        var c = a;
+        console.log('O c aqui existe: ', c); // Ok
+    }
+    teste();
+
+    // console.log(c); // ReferenceError
+
+    // ES6 (2015): o comando "let" para criação de variáveis
+    let d = 888; // global
+    if (true) {
+        let e = d;
+        console.log('O e aqui existe: ', e); // OK
+    }
+    
+    //console.log(e); // ReferenceError
+
+    // Constantes
+    const x = 0;
+    // x = 2; // TypeError
+
+    const listaNomes = ['Adriana', 'Fabiana', 'Rodrigo'];
+    console.table(listaNomes);
+
+    listaNomes.push('Gabriel');
+    listaNomes.shift();
+    listaNomes[1] = 'Henrique';
+
+    console.table(listaNomes);
+    // listaNomes = []; // TypeError: reatribuição à constante não pode ser feita
+
+    // Objeto Genérico no JS
+    const pessoa = {
+        // propriedades do objeto
+        nome: 'Beatriz',
+        sobrenome: 'Gomes',
+        idade: 48,
+        // método
+        dizerOla() {
+            console.log('Olá, pessoal! Meu nome é: ', this.nome);
+        }
+    }
+
+    console.log(pessoa);
+    pessoa.nome = "Mateus";
+    console.log(pessoa);
+    pessoa.dizerOla();
+
+    // pessoa = {}; // TypeError: reatribuição inválida!!!
+
+    // escopo vazio
+    {
+        const dadosPesados = ['a', 'b', 'c'];
+        console.log('Usando os dados pesados aqui: ', dadosPesados);
+    }
+    // console.log(dadosPesados); // ReferenceError
+
+    {
+        function foo(v1, v2) {
+            console.log('Soma: ', v1 + v2)
+        }
+
+        window.foo = foo; // exporta uma função para o escopo global da aplicação
+    }
+
+    foo(5, 2); // Ok
+
+    /*
+        Tipos:
+            Primitivos: Number (int, float), String (texto), Boolean (true/false), null, undefined, Symbol;
+            Complexos: Object (Objeto, Array, Map, Function, WeakMap, Set, etc.)
+    */
+
+
+
+</script>
