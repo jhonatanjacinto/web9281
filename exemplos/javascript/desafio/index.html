@@ -56,6 +56,46 @@
     <script>
 
         // Adicione sua lógica aqui.
+        const formulario = document.querySelector('#formCadastro');
+        const tabela = document.querySelector('#tabelaContatos');
+        const inputNome = document.querySelector('#inputNome');
+        const inputTelefone = document.querySelector('#inputTelefone');
+
+        formulario.addEventListener('submit', event => {
+            event.preventDefault(); // bloqueia o recarregamento da página
+            let nome = inputNome.value.trim();
+            let telefone = inputTelefone.value.trim();
+
+            if (nome === '') {
+                alert(inputNome.dataset.msg);
+            }
+            else if (telefone === '') {
+                alert(inputTelefone.dataset.msg);
+            }
+            else {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${nome}</td>
+                    <td>${telefone}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">
+                            Excluir
+                        </button>
+                    </td>
+                `;
+                tabela.append(tr);
+                // inputNome.value = '';
+                // inputTelefone.value = '';
+                formulario.reset(); // limpa os campos do formulário
+            }
+        });
+
+        tabela.addEventListener('click', event => {
+            if (event.target.classList.contains('btn-danger')) {
+                event.target.parentElement.parentElement.remove();
+            }
+        });
+
 
     </script>
 </body>
