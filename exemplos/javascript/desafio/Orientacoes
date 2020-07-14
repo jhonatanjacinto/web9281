@@ -1,0 +1,18 @@
+1) Guarde as referências dos seguintes elementos da interface: formulário e corpo da tabela (onde serão exibidos os contatos cadastrados);
+2) Adicione ao formulário um evento "submit" e impeça que a página recarregue quando o formulário for enviado;
+3) Pegue o valor do campo Nome e verifique se está vazio e caso esteja, mostre a mensagem de erro guardada no dataset "msg" desse campo;
+4) Faça o mesmo com o campo Telefone;
+5) Caso todos os campos estejam preenchidos corretamente, crie um elemento <tr> em memória e adicione ao seu conteúdo HTML o seguinte:
+
+    <td>[NOME DO CONTATO]</td>
+    <td>[TELEFONE DO CONTATO]</td>
+    <td>
+        <button class="btn btn-danger btn-sm">
+            Excluir
+        </button>
+    </td>
+
+6) Adicione o elemento <tr> criado como último filho do corpo da tabela.
+7) Limpe os campos do formulário
+8) Fora do evento submit do formulário, adicione um evento click à tabela e verifique se quem foi clicado foi um botão com a classe 'btn-danger'
+   (que é o botão de exclusão). Se sim, exclua a linha de dados correspondente ao botão clicado.

@@ -1,0 +1,80 @@
+<meta charset="utf-8">
+<h1>JavaScript: Navegação na DOM (Acordeões)</h1>
+<div class="acordeoes">
+    <div class="acordeao">
+        <h4>Acordeão 1</h4>
+        <div class="conteudo">
+            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita provident explicabo id, placeat officiis sed itaque veniam, quasi nisi ea numquam perferendis deserunt, alias illo dolor necessitatibus quam officia perspiciatis?</div>
+        </div>
+    </div>
+
+    <div class="acordeao">
+        <h4>Acordeão 2</h4>
+        <div class="conteudo">
+            <div>Fugit inventore nostrum saepe asperiores a sed totam amet nemo obcaecati et veritatis nulla ipsam tempora dolorum voluptate reprehenderit cumque, voluptatibus modi quas incidunt optio commodi expedita dicta sunt? Vitae?</div>
+        </div>
+    </div>
+
+    <div class="acordeao">
+        <h4>Acordeão 3</h4>
+        <div class="conteudo abrir">
+            <div>Beatae dolorem, quos atque officiis quod quisquam ex eveniet! Doloribus aliquam quae explicabo atque voluptates ea vitae. Minus et earum fugiat temporibus ipsam provident obcaecati, ea quidem, sequi quis sed?</div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 16px;
+    }
+
+    .acordeoes {
+        width: 400px;
+    }
+
+    .acordeao {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    h4 {
+        cursor: pointer;
+        background-color: #eee;
+        margin: 0;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .conteudo {
+        display: none;
+    }
+    .conteudo.abrir {
+        display: block;
+    }
+
+    .conteudo div {
+        padding: 20px;
+    }
+
+</style>
+
+<script>
+
+    // guardar a referência
+    const acordeoes = document.querySelector('.acordeoes');
+    acordeoes.addEventListener('click', event => {
+        if (event.target.tagName === 'H4') {
+            event.target.nextElementSibling.classList.toggle('abrir');
+            Array.from(acordeoes.children).forEach(acordeao => {
+                if (acordeao !== event.target.parentElement) {
+                    acordeao.lastElementChild.classList.remove('abrir');
+                }
+            });
+        }
+    });
+
+</script>
