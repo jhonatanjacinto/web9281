@@ -2,13 +2,14 @@
 (function() {
 
     const btn = document.querySelector('#btnAjuda');
-    btn.addEventListener('click', () => {
-        const listaMensagens = [
-            'Bem-vindo(a) ao CEEP!',
-            'Clique no botão "Linhas" para mudar o Layout!'
-        ];
+    btn.addEventListener('click', async () => {
+        const resposta = await fetch('https://ceep.herokuapp.com/cartoes/instrucoes');
+        const dadosAjuda = await resposta.json();
+        const listaMensagens = dadosAjuda.instrucoes;
 
-        listaMensagens.forEach(mensagem => alert(mensagem));
+        listaMensagens.forEach(instrucao => {
+            moduloMural.adicionarCartao(instrucao.conteudo, instrucao.cor);   
+        });
     });
 
 })();

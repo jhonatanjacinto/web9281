@@ -1,0 +1,38 @@
+<meta charset="utf-8">
+<h1>Ajax com Fetch | Async Await (ES7)</h1>
+<button id="btnCarregar">
+    Carregar Dados
+</button>
+<button id="btnTeste">
+    Mostrar Alerta
+</button>
+<br>
+<div id="mostradorDados">
+    Os dados carregados serão mostrados aqui...
+</div>
+
+<script>
+
+    const btnTeste = document.querySelector('#btnTeste');
+    const mostrador = document.querySelector('#mostradorDados');
+    const btnCarregar = document.querySelector('#btnCarregar');
+
+    btnTeste.onclick = () => alert('Testando...');
+
+    btnCarregar.onclick = async () => {
+        try {
+            btnCarregar.disabled = true;
+            const respostaServidor = await fetch('https://jhonatanjacinto.dev');
+            let dadosCarregados = await respostaServidor.text();
+            mostrador.innerHTML = dadosCarregados;
+        }
+        catch(erro) {
+            alert('Deu ruim!');
+            console.error(erro);
+        }
+        finally {
+            btnCarregar.disabled = false;
+        }
+    }
+
+</script>
