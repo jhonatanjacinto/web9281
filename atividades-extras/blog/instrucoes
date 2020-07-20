@@ -1,0 +1,17 @@
+1) Guardar a referência do botão
+2) Guardar a referêcia da <div> que exibirá os posts do blog
+3) Adicionar um evento click ao botão
+4) Fazer uma requisição AJAX para a URL https://jsonplaceholder.typicode.com/posts
+5) Converter a resposta em JSON
+6) O valor retornado é um ARRAY DE POSTS. Percorra esse ARRAY e para cada POST crie um elemento <div>
+7) Adicione a esse <div> duas classes: "card" e "mb-3" e "w-100"
+8) Coloque dentro desse <div> o seguinte HTML
+        `
+            <div class="card-header">
+                ${post.title}
+            </div>
+            <div class="card-body">
+                ${post.body}
+            </div>
+        `
+9) Coloque cada <div> criada como último-filho do elemento que exibirá os POSTS 

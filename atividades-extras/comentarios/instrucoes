@@ -1,0 +1,27 @@
+EXERCÍCIO 1: CARREGAR UMA LISTA DE 10 POSTS NA TABELA
+
+1) Guardar a referência do elemento HTML onde os posts serão exibidos (veja o que identifica esse elemento)
+2) Guardar a referência do elemento HTML onde os comentários serão exibidos (veja o que identifica esse elemento)
+3) Assim que a página for carregada, faça uma requisição AJAX para a URL https://jsonplaceholder.typicode.com/posts?_start=0&_limit=10
+4) Ela retorna um JSON contendo uma lista de objetos (ARRAY) com 10 posts 
+5) Para cada post do ARRAY retornado, crie um elemento <tr> (table row)
+6) Insira nesse elemento a estrutura HTML a seguir:
+    
+    <td>ID_DO_POST</td>
+    <td>TITULO_DO_POST</td>
+    <td>
+        <button data-postid="ID_DO_POST" class="btn-ver btn btn-primary">
+            Ver comentários
+        </button>
+    </td>
+
+7) Insira cada <tr> no corpo da tabela
+
+
+EXERCÍCIO 2: VENDO OS COMENTÁRIOS DE CADA POST
+
+    FAREMOS ESSA PARTE PASSO A PASSO JUNTOS PENSANDO NA SOLUÇÃO
+
+EXERCÍCIO 3: PAGINAÇÃO E ALTERAÇÃO DA QUANTIDADE DE DADOS EXIBIDA
+
+    FAREMOS ESSA PARTE PASSO A PASSO JUNTOS PENSANDO NA SOLUÇÃO
