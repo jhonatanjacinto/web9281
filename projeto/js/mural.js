@@ -54,11 +54,34 @@ const moduloMural = (function() {
         mural.append(cartao);
     }
 
+    function getCartoes()
+    {
+        const cartoes = mural.querySelectorAll('.cartao');
+        const listaDeCartoes = Array.from(cartoes).map(cartao => {
+            return {
+                conteudo: cartao.querySelector('.cartao-conteudo').textContent,
+                cor: cartao.style.backgroundColor
+            }
+        });
+
+        return listaDeCartoes;
+    }
+
+    // JSONP = JSON with Padding
+    $.get('https://ceep.herokuapp.com/cartoes/carregar', { usuario: 'jhonatan.jacinto@caelum.com.br' }, function(dados) {
+        console.log(dados);
+        const listaCartoes = dados.cartoes;
+        listaCartoes.forEach(cartao => {
+            adicionarCartao(cartao.conteudo, cartao.cor);
+        });
+    }, 'jsonp');
+
     // retorna um objeto que representará o módulo
     // com os recursos que deverão ser públicos (acessíveis)
     return {
         mudarLayout,
-        adicionarCartao
+        adicionarCartao,
+        getCartoes
     }
 
 })();

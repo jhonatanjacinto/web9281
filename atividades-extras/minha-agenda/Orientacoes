@@ -1,0 +1,28 @@
+Integração API:
+    GET = https://jhonatanjacinto.dev/minha-agenda/?usuario=[NOME_USUARIO]
+    Retorna a lista de contatos salva no back-end (Array)
+
+    POST = https://jhonatanjacinto.dev/minha-agenda/
+    Parâmetros: 
+        a) usuario=[NOME_USUARIO] (nome e sobrenome tudo junto minusculo)
+        b) contatos=[ARRAY_STRING_JSON_CONTATOS]
+
+
+Estrutura HTML das linhas da tabela:
+    `
+    <td>[NOME_DO_CONTATO]</td>
+    <td>[TELEFONE_DO_CONTATO]</td>
+    <td>
+        <button class="btn btn-danger">
+            Excluir
+        </button>
+    </td>
+    `
+
+MANIPULAÇÃO DA DOM
+    1) Validar o Formulário
+    2) Caso o formulário esteja preenchido de forma correta, pegar os dados e criar uma nova linha na tabela 
+    conforme a estrutura HTML acima.
+
+INTEGRAÇÃO COM A API
+        Faremos juntos essa integração com base no que já vimos.

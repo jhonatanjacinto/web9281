@@ -53,6 +53,22 @@
     const tabela = document.querySelector('tbody');
     const ulComentarios = document.querySelector('.comentarios');
     const seletorPagina = document.querySelector('#paginador');
+    const seletorQuantidade = document.querySelector('#quantidade');
+
+    seletorQuantidade.addEventListener('change', () => {
+        let numeroPaginas = Math.ceil(100 / seletorQuantidade.value);
+        seletorPagina.innerHTML = '';
+
+        for (let i = 1; i <= numeroPaginas; i++)
+        {
+            const opcao = document.createElement('option');
+            opcao.value = i;
+            opcao.textContent = i;
+            seletorPagina.append(opcao);
+        }
+
+        carregarPosts();
+    });
 
     seletorPagina.addEventListener('change', () => {
         let pagina = seletorPagina.value;
@@ -62,11 +78,11 @@
     carregarPosts();
     async function carregarPosts(pagina = 1) 
     {
-        let quantidade = 10;
+        let quantidade = seletorQuantidade.value;
         let valorStart = pagina * quantidade - quantidade;
         tabela.innerHTML = "Carregando...";
 
-        const resposta = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=${valorStart}&_limit=10`);
+        const resposta = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=${valorStart}&_limit=${quantidade}`);
         const listaDePosts = await resposta.json();
 
         tabela.innerHTML = '';
@@ -85,5 +101,40 @@
             tabela.append(linha);
         });
     }
+
+    tabela.addEventListener('click', async event => {
+        // se tem a classe btn-ver, então o usuario clicou no botão de ver comentários
+        if (event.target.classList.contains('btn-ver'))
+        {
+            // https://jsonplaceholder.typicode.com/comments?postId=ID_DO_POST
+            ulComentarios.innerHTML = '';
+            const botao = event.target;
+            botao.textContent = 'Carregando...';
+            botao.disabled = true;
+
+            let idPost = botao.dataset.postid;
+            const resposta = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${idPost}`);
+            const listaDeComentarios = await resposta.json();
+
+            for (let comentario of listaDeComentarios)
+            {
+                const item = document.createElement('li');
+                item.classList.add('list-group-item', 'mb-3');
+                item.innerHTML = `
+                    <i>${comentario.email.toLowerCase()}</i> comentou:
+                    <hr>
+                    <b>${comentario.name.toUpperCase()}</b> <br>
+                    ${comentario.body}
+                `;
+                ulComentarios.append(item);
+            }
+
+            botao.textContent = 'Ver comentários';
+            botao.disabled = false;
+
+            // scrolla a página até a posição do elemento que contém os comentários
+            window.scrollTo({ top: ulComentarios.offsetTop , behavior: 'smooth' });
+        }
+    });
 
 </script>
