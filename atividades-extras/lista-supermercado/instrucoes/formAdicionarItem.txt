@@ -1,0 +1,15 @@
+1) Crie uma IIFE para proteger o código do modulo do formulário;
+2) Crie uma constante chamada "form" e guarde a referência do formulário do site nela
+3) Crie uma constante chamada "alertaForm" e guarde a referência do objeto do site que tenha o id "alertaFormulario"
+4) Adicione ao "form" um evento "submit" com uma função (ou Arrow Function) que será executada quando o formulário for submetido
+5) Bloqueie o evento para que a página não seja recarregada
+6) Dentro da função do evento "submit", crie uma constante chamada "campoTexto" e guarde a referência do elemento que tiver o id "nomeItem"
+7) SE o campoTexto estiver vazio, remova a classe "d-none" no objeto "alertaForm" e chame o comando "campoTexto.focus();" para que o cursor fique piscando na caixa de texto do formulário
+8) CASO CONTRÁRIO, adicione a classe "d-none" no objeto "alertaForm", crie uma variável chamada "conteudo" e guarde nela o valor digitado no elemento "campoTexto" (lembrando que "campoTexto" é um <input /> no HTML)
+9) Limpe o campo de texto 
+
+TESTE A VALIDAÇÃO DO FORMULÁRIO
+
+FAÇA O PASSO 10 SOMENTE DEPOIS QUE FIZER O MÓDULO DA TABELA
+10) Logo abaixo do comando de limpeza do campo de texto, chame o método "adicionarLinha" do módulo "moduloTabela" passando 
+como parâmetro a variável "conteudo"

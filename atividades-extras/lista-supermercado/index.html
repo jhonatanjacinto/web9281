@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista de Supermercado</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/all.css" />
+    <style>button > i, .c-disable { pointer-events: none; }</style>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1 class="display-4">Meu Supermercado</h1>
+        <p class="lead">Com esse app você pode desenvolver sua própria lista de supermercado.</p>
+        <hr class="my-4">
+        <p>Faça uso do formulário abaixo para criar sua lista de itens para a sua próxima ida ao supermercado.</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Cadastro de Itens</strong>
+                    </div>
+                    <div class="card-body">
+                        <div id="alertaFormulario" class="alert alert-danger d-none">
+                            Por favor, preencha o nome do item!
+                        </div>
+                        <form id="formAdicionarItem" method="get">
+                            <div class="form-group">
+                                <label for="nomeItem">* Nome do Item:</label>
+                                <input type="text" class="form-control" id="nomeItem" placeholder="Digite o nome do item aqui..." />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    Cadastrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                    <div id="alertaTabela" class="alert alert-warning d-none">
+                        Não há itens cadastrados na sua lista :/
+                    </div>
+                    <table class="table table-hover">
+                        <col width="90%">
+                        <col width="10%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" colspan="2">
+                                    Nome do Item <span class="badge badge-info float-right d-none">Sincronizando...</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela">
+                            <!-- Linhas serão criadas aqui pelos módulos -->
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="my-4">
+                <p class="text-center">2019 &copy; Meu Supermercado - Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/formAdicionarItem.js"></script>
+    <script src="js/tabela.js"></script>
+    <script src="js/sync.js"></script>
+    
+</body>
+</html>

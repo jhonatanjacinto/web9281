@@ -12,6 +12,7 @@ const moduloMural = (function() {
             cartao.classList.add('cartao--some');
             cartao.addEventListener('transitionend', () => {
                 cartao.remove(); // remove o cartão
+                moduloSync.sincronizar();
             });
         }
     });

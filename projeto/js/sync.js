@@ -1,4 +1,4 @@
-(function() {
+const moduloSync = (function() {
 
     const btnSync = document.querySelector('#btnSync');
     btnSync.addEventListener('click', async function() {
@@ -32,5 +32,11 @@
         btnSync.disabled = false;
         btnSync.classList.replace('botaoSync--esperando', 'botaoSync--sincronizado');
     });
+
+    return {
+        sincronizar() {
+            btnSync.click();
+        }
+    }
 
 })();

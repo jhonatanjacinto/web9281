@@ -1,0 +1,54 @@
+1) Crie uma constante chamada "moduloTabela" que irá representar todo o módulo que controla a tabela; ela guardará o objeto retornado da IIFE (como referência, veja o exemplo do arquivo "sync.js")
+2) Dentro da IIFE adicione o comando 'use strict'
+3) Crie uma constante chamada "alertTabela" e guarde nela a referência do elemento com id "alertaTabela"
+4) Crie uma constante chamada "tabela" e guarde nela a referência do elemento com id "tabela" (que é o <tbody>)
+5) Adicione ao objeto "tabela" um evento "click"
+6) Dentro da função que é executada pelo evento, pegue o alvo do evento e verifique se ele TEM A CLASSE "btn-remover" e se tiver, então pegue o alvo do evento e remova o elemento <TR> ancestral dele
+7) Chame a função "mostrarOuEsconder" que criaremos mais à frente
+8) Fora do evento "click" da tabela, crie uma função sem parâmetros chamada "getLinhas"
+9) Dentro dela, crie uma constante chamada "trs" e guarde nela a lista de todos os elementos <tr> que estão no corpo da tabela
+10) Em seguida, crie uma constante chamada "linhas" e guarde nela o resultado do comando abaixo:
+    
+        Array.from(trs).map( elemento => {
+            return { 
+                conteudo: elemento.querySelector('td:first-child').textContent 
+            }
+        });
+
+        Explicação: o comando acima percorre todos os elementos <TR> que o JS achou na tabela, transforma num array e mapeia
+        cada um deles para um objeto tendo uma propriedade chamada "conteudo" com o texto presente no primeiro-filho "<td>"
+        das linhas da tabela.
+
+11) Em seguida insira o comando "return linhas;" para que a nova lista seja retornada
+12) Fora da função anterior, crie uma nova função chamada "mostrarOuEsconder"
+13) Dentro dela crie uma constante chamada "linhas" que receberá o array retornado da função "getLinhas"
+14) SE a quantidade de itens no objeto "linhas" (que é um Array) for igual a 0, então remova a classe "d-none" do objeto "alertTabela" e em seguida adicione ao objeto "tabela" a classe "d-none"
+15) CASO CONTRÁRIO faça o inverso, adicione a classe "d-none" ao objeto "alertTabela" e remove a classe "d-none" do objeto "tabela"
+
+TESTE A REMOÇÃO DE LINHAS NA TABELA
+
+16) Crie uma função chamada "adicionarLinha" com um parâmetro chamado "conteudo"
+17) Dentro dela, crie um elemento <tr> em memória e guarde numa constante chama "linha" e como conteúdo HTML desse elemento insira a estrutura abaixo:
+
+        `<td>${conteudo}</td>
+        <td>
+            <button class="btn btn-danger btn-remover">
+                <i class="fas fa-trash"></i>
+            </button>
+        </td>`
+
+18) Adicione à tabela o elemento <tr> criado em memória
+19) Em seguida, chame a função "mostrarOuEsconder"
+20) Antes do fechamento da IIFE do "moduloTabela", adicione o seguinte código:
+
+        return {
+            adicionarLinha,
+            getLinhas,
+            mostrarOuEsconder
+        }
+
+        Explicação: este comando irá expor os métodos/funções do nosso módulo que serão públicos
+
+FAÇA OS PASSOS 21 e 22 SOMENTE DEPOIS QUE FIZER O MÓDULO SYNC
+21) Dentro da função "adicionarLinha", depois da chamada da função "mostrarOuEsconder", chame o método "sincronizar" do "moduloSync"
+22) Faça o mesmo dentro da função que realiza a remoção de itens da tabela.

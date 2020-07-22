@@ -9,6 +9,7 @@
         }
         else {
             moduloMural.adicionarCartao(campo.value);
+            moduloSync.sincronizar();
             formulario.reset();
         }
     });
