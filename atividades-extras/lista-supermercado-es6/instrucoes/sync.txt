@@ -1,0 +1,24 @@
+Parte 1: BUSCA DE DADOS NO SERVIDOR
+1) Crie uma constante chamada "badge" e guarde nela a referência do elemento com classe "badge-info";
+2) Crie uma constante chamada "resposta" para guardar o retorno do comando fetch para a URL "https://jhonatanjacinto.dev/lista-supermercado/?usuario=[SEU USUARIO]". Substitua [SEU USUARIO] pelo seu nome e sobrenome juntos em minusculo;
+3) Crie uma constante chamada "listaItens" para guardar a conversão da resposta retornada em JSON;
+4) "listaItens" é um Array. Percorra esse array com um forEach ou um for...of. Dentro do looping, chame a função adicionarLinha do "moduloTabela" e passe como valor do parâmetro cada item da lista;
+5) Por fim, fora do looping anterior, chame a função "mostrarOuEsconder" do "moduloTabela"
+
+
+Parte 2: SALVAMENTO DE DADOS NO SERVIDOR
+1) Remova a classe "d-none" do objeto "badge" criado anteriormente;
+2) Crie uma constante chamada "linhas" que guardará o retorno da função "getLinhas" do "moduloTabela";
+3) Em seguida, prepare o envio das informações criando os parâmetros de envio necessários conforme o código abaixo:
+
+    const parametros = new URLSearchParams();
+    parametros.append('usuario', '[SEU USUARIO]');
+    parametros.append('itens', JSON.stringify(lista));
+
+    Substitua [SEU USUARIO] pelo seu nome e sobrenome juntos em minusculo
+    O parâmetro "itens" recebe a lista transformada em JSON pelo método JSON.stringify()
+
+4) Realize o envio das informações pelo uso da função fetch() para a URL "https://jhonatanjacinto.dev/lista-supermercado/" configurando a requisição para método "POST" e passando os parâmetros no "body" do objeto de requisição 
+5) Guarde o retorno JSON da resposta do servidor numa constante chamada "statusServidor"
+6) Exiba essa constante no console
+7) Adicione ao objeto "badge" a classe "d-none" removida no passo 1

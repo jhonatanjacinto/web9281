@@ -1,0 +1,199 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<div class="container">
+    <h1 class="display-4 mb-3 mt-3">IndexedDB: Banco de dados no Navegador</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome:</th>
+                <th>Idade:</th>
+                <th>Cargo:</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="card mt-3 mb-3">
+        <div class="card-header">
+            Cadastrar Funcionário
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Nome:</label>
+                <input type="text" id="campoNome" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Idade:</label>
+                <input type="text" id="campoIdade" class="form-control" />
+            </div>
+            
+            <div class="form-group">
+                <label>Cargo:</label>
+                <input type="text" id="campoCargo" class="form-control" />
+            </div>
+
+            <button id="btnSalvar" class="btn btn-primary">
+                Salvar
+            </button>
+            <input type="hidden" id="empregadoId" value="" />
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const tbody = document.querySelector('tbody');
+    const inputNome = document.querySelector('#campoNome');
+    const inputIdade = document.querySelector('#campoIdade');
+    const inputCargo = document.querySelector('#campoCargo');
+    const inputId = document.querySelector('#empregadoId');
+    const btnSalvar = document.querySelector('#btnSalvar');
+
+    let db;
+    const requestDb = indexedDB.open('db_empregados', 1);
+    requestDb.addEventListener('success', () => {
+        db = requestDb.result;
+        listarEmpregados(); // já inicia a exibição dos empregados
+        console.log('Base de dados criada com sucesso!');
+    });
+
+    requestDb.addEventListener('upgradeneeded', () => {
+        db = requestDb.result;
+        const store = db.createObjectStore('empregados', { keyPath: 'id', autoIncrement: true });
+        store.add( { nome: 'Pedro Gonçalves', idade: 45, cargo: 'Programador Ruby' } );
+        store.add( { nome: 'Thaís Mendonça', idade: 22, cargo: 'Programadora C#' } );
+    });
+
+    btnSalvar.addEventListener( 'click', (event) => {
+        let isInvalido = inputNome.value.trim() === '' || isNaN(inputIdade.value.trim()) || inputCargo.value.trim() === '';
+        if (isInvalido) {
+            alert('Por favor, preencha o formulário corretamente!');
+            inputNome.focus();
+        }
+        else {
+            salvarEmpregado();
+        }
+    });
+
+    tbody.addEventListener( 'click', (event) => {
+        let isExcluir = event.target.classList.contains('excluir');
+        let isEditar = event.target.classList.contains('editar');
+
+        if (isExcluir && confirm('Deseja realmente excluir esse dado?')) {
+            let id = parseInt(event.target.parentElement.parentElement.dataset.id);
+            excluirEmpregado(id);
+            listarEmpregados();
+        }
+
+        if (isEditar) {
+            let id = parseInt(event.target.parentElement.parentElement.dataset.id);
+            carregarEmpregado(id);
+        }
+    });
+
+    function listarEmpregados()
+    {
+        try
+        {
+            tbody.innerHTML = '';
+            const transacao = db.transaction('empregados');
+            const tabelaEmpregados = transacao.objectStore('empregados');
+            tabelaEmpregados.openCursor().onsuccess = function(event) {
+                let cursor = event.target.result;
+
+                if (!cursor) return;
+
+                let dadosEmpregado = cursor.value;
+                const tr = document.createElement('tr');
+                tr.dataset.id = dadosEmpregado.id;
+                tr.innerHTML = `
+                    <td>${dadosEmpregado.nome}</td>
+                    <td>${dadosEmpregado.idade}</td>
+                    <td>${dadosEmpregado.cargo}</td>
+                    <td>
+                        <button class="excluir btn btn-danger">Excluir</button>
+                    </td>
+                    <td>
+                        <button class="editar btn btn-primary">Editar</button>
+                    </td>
+                `;
+                tbody.append(tr);
+                cursor.continue();
+            }
+        }
+        catch(e)
+        {
+            console.error(e);
+        }
+    }
+
+    function salvarEmpregado()
+    {
+        let empregadoId = isNaN(inputId.value.trim()) ? 0 : parseInt(inputId.value.trim());
+
+        const dadosEmpregado = {
+            nome: inputNome.value.trim(),
+            idade: parseInt(inputIdade.value.trim()),
+            cargo: inputCargo.value.trim()
+        }
+
+        if (empregadoId > 0) {
+            // atualizando um empregado
+            dadosEmpregado.id = empregadoId;
+        }
+
+        const transacao = db.transaction('empregados', 'readwrite');
+        const tabelaEmpregados = transacao.objectStore('empregados');
+        const operacao = tabelaEmpregados.put(dadosEmpregado);
+        operacao.onsuccess = () => {
+            alert('Empregado salvo com sucesso!');
+            listarEmpregados();
+            inputNome.value = '';
+            inputIdade.value = '';
+            inputCargo.value = '';
+            inputId.value = '';
+        }
+        operacao.onerror = (erro) => {
+            alert('Erro ao inserir dados na base de dados!');
+            console.error(erro);
+        }
+    }
+
+    function carregarEmpregado(id)
+    {
+        try
+        {
+            const transacao = db.transaction('empregados');
+            const tabelaEmpregados = transacao.objectStore('empregados');
+            tabelaEmpregados.get(id).onsuccess = (event) => {
+                const empregado = event.target.result;
+                inputNome.value = empregado.nome;
+                inputIdade.value = empregado.idade;
+                inputCargo.value = empregado.cargo;
+                inputId.value = empregado.id;
+            }
+        }
+        catch(e) {
+            alert('Erro ao carregar informações do empregado!');
+            console.error(e);
+        }
+    }
+
+    function excluirEmpregado(id)
+    {
+        try {
+            const transacao = db.transaction('empregados', 'readwrite');
+            const tabelaEmpregados = transacao.objectStore('empregados');
+            tabelaEmpregados.delete(id).onsuccess = (event) => alert('Empregado excluído com sucesso!');
+        }
+        catch(e) {
+            alert("Erro ao executar operação de exclusão!");
+            console.error(e);
+        }
+    }
+
+
+</script>

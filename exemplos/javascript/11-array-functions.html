@@ -1,0 +1,40 @@
+<meta charset="utf-8">
+<h1>Funções de Array</h1>
+
+<script>
+
+    const listaUsuarios = [
+        { id: 1, nome: 'Anderson', email: 'anderson@gmail.com', idade: 28, isAtivo: true },
+        { id: 2, nome: 'Pedro', email: 'pedro@gmail.com', idade: 29, isAtivo: true },
+        { id: 3, nome: 'Mateus', email: 'mateus@gmail.com', idade: 14, isAtivo: false },
+        { id: 4, nome: 'Ana', email: 'ana@gmail.com', idade: 32, isAtivo: true },
+        { id: 5, nome: 'Carla', email: 'carla@gmail.com', idade: 19, isAtivo: false },
+        { id: 6, nome: 'Maiara', email: 'maiara@gmail.com', idade: 18, isAtivo: true },
+    ];
+
+    // lista original
+    console.log(listaUsuarios);
+
+    // map(): transforma/mapeia um array de um tipo em outro
+    const nomes = listaUsuarios.map(usuario => usuario.nome);
+    console.log('Nomes dos usuários: ', nomes);
+
+    // filter(): retorna uma lista de itens que atendam ao critério de seleção
+    const listaMenos20anos = listaUsuarios.filter(usuario => usuario.idade < 20 && usuario.isAtivo == true);
+    console.log(listaMenos20anos);
+
+    //find(): retorna o primeiro item que atenda ao critério de seleção
+    const usuarioMais28anos = listaUsuarios.find(usuario => usuario.idade > 28);
+    console.log(usuarioMais28anos);
+
+    // findIndex(): retorna a posição do primeiro item que atenda ao critério de seleção
+    const posicaoUsuarioMais30anos = listaUsuarios.findIndex(usuario => usuario.idade > 30);
+    console.log(posicaoUsuarioMais30anos);
+
+    // reduce(): percorre os itens de uma lista e retorna um único valor gerado a partir dessas informações
+    const somaIdades = listaUsuarios.reduce(function(acumulador, usuario) {
+        return acumulador + usuario.idade;
+    }, 0);
+    console.log('Soma das Idades:', somaIdades);
+
+</script>
